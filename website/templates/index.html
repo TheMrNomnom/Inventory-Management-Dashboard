@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <div class="section">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-start">Item Name</th>
+                    <th class="text-start">Quantity</th>
+                    <th class="text-end">Location</th>
+                </tr>
+            </thead>
+           <tbody>
+                {% for item in items %}
+                <tr>
+                    <td class="text-start">{{ item.item_name }}</td>
+                    <td class="text-start">{{ item.quantity }}</td>
+                    <td class="text-end">{{ item.location_name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+            </div>
+{% endblock %}

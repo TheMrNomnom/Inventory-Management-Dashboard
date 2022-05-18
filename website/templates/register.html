@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/auth/register" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"></div>
+            <div class="form-group">
+                <input class="form-control" name="password" placeholder="Password" type="password"></div>
+                <div class="form-group">
+                    <input class="form-control" name="confirmation" placeholder="Confirm password" type="password">
+                    <p>Username must be 20 characters or less</p>
+                        <p>Password must be between 8-20 characters and contain one lowercase character, one uppercase character, one symbol (@, $, _) and one number.</p>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Register</button>
+                </form>
+            {% endblock %}
