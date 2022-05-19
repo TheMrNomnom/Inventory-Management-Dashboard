@@ -1,0 +1,3 @@
+## How to use
+
+The app has been designed to be intuitive to use. First you must register an account by navigating to the Register page through the navigation bar at the top of the screen. Then you will be redirected to log into the application. Once you are properly authenticated, you may interact with items and locations by adding, editing, deleting them in the database through their respective tabs. The Home page will always display a summary of the inventory organized by the location. 
