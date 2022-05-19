@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <header>
+        <h2>Variance Calculator</h2>
+    </header>
+    <div class="section">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-start">Item Name</th>
+                    <th class="text-start">Current Quantity</th>
+                    <th class="text-start">Desired Quantity</th>
+                    <th class="text-start">Standard Cost Per Unit</th>
+                    <th class="text-start">Actual Cost Per Unit</th>
+                    <th class="text-end">Price Variance Per Unit</th>
+                </tr>
+            </thead>
+           <tbody>
+
+                <tr>
+                    <td class="text-start">
+                        <select name="item_list" id="item_selector">
+                        <option disable selected>Item</option>
+                        {% for item in items %}
+                            <option value="{{ item.id }}">{{ item.item_name }}</option>
+                        {% endfor %}
+                        </select>
+                    </td>
+                    <td class="text-start" id="current_item_quantity"></td>
+                    <td class="text-start"><input autocomplete="off" autofocus class="form-control" name="quantity" placeholder="Desired Quantity" type="number"></td>
+                    <td class="text-start"><input autocomplete="off" autofocus class="form-control" name="standard_cost" placeholder="Standard Cost" type="number"></td>
+                    <td class="text-start"><input autocomplete="off" autofocus class="form-control" name="actual_cost" placeholder="Actual Cost" type="number"></td>
+                    <td class="text-end" id="variance"></td>
+                    <script>
+                        /* Calculate price variance by subtracting the actual cost times the quantity by the standard cost times the quantity */
+                        function calculateVariance(actual_cost, standard_cost, quantity) {
+                            var variance = (actual_cost - standard_cost) * quantity;
+                            return variance;
+                        }
+
+                        $('input').on('change', function() {
+                            var actual_cost = $('input[name="actual_cost"]').val();
+                            var standard_cost = $('input[name="standard_cost"]').val();
+                            var quantity = $('input[name="quantity"]').val();
+                            var variance = calculateVariance(actual_cost, standard_cost, quantity);
+                            var variance = variance / quantity;
+                            $('#variance').text(variance);
+                        });
+
+                        var e = document.getElementById("item_selector");
+                        if (e) {
+                            e.addEventListener('change', function () {
+                            var id = e.options[e.selectedIndex].value;
+                            var item_req = new XMLHttpRequest();
+                            item_req.open('GET', '/endpoints/item_info?item_id=' + id, true);
+                            item_req.onload = function () {
+                                if (this.status == 200) {
+                                    var response = JSON.parse(this.responseText);
+                                    document.getElementById("current_item_quantity").innerHTML = response[0].quantity;
+                                }
+                            };
+                            item_req.send();
+                            });
+                        }
+                    </script>
+
+                </tr>
+            </tbody>
+
+        </table>
+            </div>
+{% endblock %}

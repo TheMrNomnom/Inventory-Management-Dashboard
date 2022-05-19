@@ -12,9 +12,9 @@ views = Blueprint("views", __name__)
 def index():
     """Homepage that displays all items in inventory, their quantity, and their location."""
     items = Item.query.all()
-    items = [item.__dict__ for item in items]
+    items = query_to_dict(items)
     locations = Location.query.all()
-    locations = [location.__dict__ for location in locations]
+    locations = query_to_dict(locations)
 
     for _ in range(len(items)):
         for location in locations:
@@ -164,3 +164,11 @@ def delete():
         locations = Location.query.all()
         locations = query_to_dict(locations)
         return render_template("delete.html", items=items, locations=locations, user=current_user)
+
+@views.route("/variance-calculator")
+@login_required
+def variance_calculator():
+    """Calculate variance"""
+    items = Item.query.all()
+    items = query_to_dict(items)
+    return render_template("variance_calculator.html", items=items, user=current_user)
