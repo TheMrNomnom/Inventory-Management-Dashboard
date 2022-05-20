@@ -27,7 +27,7 @@ def login():
             if check_password_hash(user.hash, request.form.get("password")):
                 flash("Logged in")
                 login_user(user, remember=True)
-                return redirect(url_for("views.add"))
+                return redirect(url_for("views.index"))
             else:
                 flash("Incorrect password")
                 return redirect(url_for("auth.login"))
@@ -109,7 +109,6 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
-        print("here")
         return redirect(url_for("auth.login"))
 
-    return render_template("register.html", user=current_user)
+    return render_template("register.html", user = current_user)

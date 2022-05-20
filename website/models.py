@@ -31,7 +31,7 @@ class Item(db.Model, SerializerMixin):
         self.location_id = location_id
 
     def __repr__(self):
-        return f"<Item {self.name}>"
+        return f"<Item {self.item_name}>"
 
 
 class Location(db.Model, SerializerMixin):
