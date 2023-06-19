@@ -1,0 +1,7 @@
+cs50==9.0.0
+Flask==2.2.2
+Flask_Login==0.6.2
+Flask_Session==0.4.0
+flask_sqlalchemy==3.0.3
+SQLAlchemy_serializer==1.4.1
+Werkzeug==2.2.2
